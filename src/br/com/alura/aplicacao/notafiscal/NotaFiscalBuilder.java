@@ -14,9 +14,32 @@ public class NotaFiscalBuilder {
     private Calendar data;
 
     public NotaFiscal constroi() {
-        return new NotaFiscal(this.razaoSocial, this.cnpj, this.data, this.valorBruto, this.imposto, this.itens, this.observacoes);
+
+    	NotaFiscal nf = new NotaFiscal(this.razaoSocial, this.cnpj, this.data, this.valorBruto, this.imposto, this.itens, this.observacoes);
 
         // Padrao observer
+        enviaPorEmail(nf);
+        salvaNoBanco(nf);
+        enviaPorSms(nf);
+        imprime(nf);
+
+        return nf;
+    }
+
+    private void enviaPorEmail(NotaFiscal notaFiscal) {
+        System.out.println("enviando por e-mail");
+    }
+
+    private void salvaNoBanco(NotaFiscal notaFiscal) {
+        System.out.println("salvando no banco");
+    }
+
+    private void enviaPorSms(NotaFiscal notaFiscal) {
+        System.out.println("enviando por sms");
+    }
+
+    private void imprime(NotaFiscal notaFiscal) {
+        System.out.println("imprimindo notaFiscal");
     }
 
     public NotaFiscalBuilder paraEmpresa(String razaoSocial) {
