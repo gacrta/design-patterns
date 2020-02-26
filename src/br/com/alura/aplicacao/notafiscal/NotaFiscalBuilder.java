@@ -12,16 +12,22 @@ public class NotaFiscalBuilder {
     private double imposto;
     private String observacoes;
     private Calendar data;
+    
+    List<TratadorDeNovaNotaFiscal> acoesAExecutar = new ArrayList<>();
+    
+    public NotaFiscalBuilder cadastraAcao(TratadorDeNovaNotaFiscal acao) {
+    	acoesAExecutar.add(acao);
+    	return this;
+    }
 
     public NotaFiscal constroi() {
 
     	NotaFiscal nf = new NotaFiscal(this.razaoSocial, this.cnpj, this.data, this.valorBruto, this.imposto, this.itens, this.observacoes);
 
         // Padrao observer
-        new EnviadorPorEmail().enviaPorEmail(nf);
-        new NotaFiscalDao().salvaNoBanco(nf);
-        new EnviadorDeSms().enviaPorSms(nf);
-        new Impressora().imprime(nf);
+        for (TratadorDeNovaNotaFiscal acao : acoesAExecutar) {
+        	acao.executa(nf);
+        }
 
         return nf;
     }
