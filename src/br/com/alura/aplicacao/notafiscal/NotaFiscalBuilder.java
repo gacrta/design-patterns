@@ -15,6 +15,8 @@ public class NotaFiscalBuilder {
 
     public NotaFiscal constroi() {
         return new NotaFiscal(this.razaoSocial, this.cnpj, this.data, this.valorBruto, this.imposto, this.itens, this.observacoes);
+
+        // Padrao observer
     }
 
     public NotaFiscalBuilder paraEmpresa(String razaoSocial) {
